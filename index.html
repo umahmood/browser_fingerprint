@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/md5.min.js"></script>
+    <title>Browser Fingerprint Test</title>
+</head>
+<body>
+<canvas id="finger"></canvas>
+</body>
+    <script type="text/javascript">
+        var canvas = document.getElementById("finger");
+        var ctx  = canvas.getContext("2d");
+
+        canvas.width = navigator.userAgent.length * 5;
+        canvas.height = 50;
+
+        var gradient=ctx.createLinearGradient(0,0, canvas.width,0);
+        gradient.addColorStop("0","magenta");
+        gradient.addColorStop("0.5","blue");
+        gradient.addColorStop("1.0","red");
+
+        ctx.fillStyle=gradient;
+        ctx.font="10px Arial";       
+        ctx.fillText(navigator.userAgent,10,30);
+
+        var dataUrl = canvas.toDataURL();
+        var hash = md5(dataUrl);
+
+        console.log("BASE64:", dataUrl);
+        console.log("MD5 HASH:", hash);
+    </script>
+</html>
